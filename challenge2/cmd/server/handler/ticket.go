@@ -1,9 +1,9 @@
 package handler
 
 import (
+	"challenge2/internal/tickets"
 	"net/http"
 
-	"github.com/bootcamp-go/desafio-go-web/internal/tickets"
 	"github.com/gin-gonic/gin"
 )
 

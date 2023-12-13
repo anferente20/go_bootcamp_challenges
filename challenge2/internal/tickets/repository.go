@@ -1,10 +1,9 @@
 package tickets
 
 import (
+	"challenge2/internal/domain"
 	"context"
 	"fmt"
-
-	"github.com/bootcamp-go/desafio-go-web/internal/domain"
 )
 
 type Repository interface {

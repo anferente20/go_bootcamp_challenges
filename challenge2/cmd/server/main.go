@@ -1,13 +1,12 @@
 package main
 
 import (
+	"challenge2/internal/domain"
 	"encoding/csv"
 	"fmt"
 	"os"
 	"strconv"
 
-	"github.com/bootcamp-go/desafio-go-web/cmd/server/router"
-	"github.com/bootcamp-go/desafio-go-web/internal/domain"
 	"github.com/gin-gonic/gin"
 )
 
