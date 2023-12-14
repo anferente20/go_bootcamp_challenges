@@ -1,10 +1,10 @@
 package tickets
 
 import (
+	"challenge2/internal/domain"
 	"context"
 	"testing"
 
-	"github.com/bootcamp-go/desafio-go-web/internal/domain"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -96,6 +96,23 @@ func (r *stubRepo) GetTicketByDestination(ctx context.Context, destination strin
 	return tkts, nil
 }
 
+func (r *stubRepo) AverageDestination(ctx context.Context, destination string) (float32, error) {
+
+	var count float32
+
+	r.db.spy = true
+	if r.db.err != nil {
+		return float32(0), r.db.err
+	}
+
+	for _, t := range r.db.db {
+		if t.Country == destination {
+			count += float32(1)
+		}
+	}
+	return count / float32(len(r.db.db)), nil
+}
+
 func TestGetTicketByDestination(t *testing.T) {
 
 	dbMock := &DbMock{
@@ -106,7 +123,7 @@ func TestGetTicketByDestination(t *testing.T) {
 	repo := NewRepositoryTest(dbMock)
 	service := NewService(repo)
 
-	tkts, err := service.GetTotalTickets(cxt, "China")
+	tkts, err := service.GetTicketByDestination(cxt, "China")
 
 	assert.Nil(t, err)
 	assert.True(t, dbMock.spy)
