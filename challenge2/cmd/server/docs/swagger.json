@@ -1,0 +1,59 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "this is a rest api server for items",
+        "title": "Tickets API",
+        "contact": {},
+        "version": "1"
+    },
+    "paths": {
+        "/tickets/getAverage/:dest": {
+            "get": {
+                "description": "Getl all tickets by country",
+                "tags": [
+                    "ticjets"
+                ],
+                "summary": "Show average of tickets by country",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/tickets/getByCountry/:dest": {
+            "get": {
+                "description": "Getl all tickets by country",
+                "tags": [
+                    "ticjets"
+                ],
+                "summary": "Show All tickets by country",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    }
+                }
+            }
+        }
+    }
+}

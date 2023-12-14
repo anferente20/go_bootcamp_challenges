@@ -1,6 +1,28 @@
+// swagger: "2.0"
+// info:
+//
+//	title: Tickets API
+//	description: Spec Documentation for pet service.
+//	version: 1.0.0
+//
+// schemes:
+//   - http
+//
+// BasePath: /
+// Host: localhost:8080
+//
+// Consumes:
+// - application/json
+//
+// Produces:
+// - application/json
+//
+// swagger:meta
 package main
 
 import (
+	"challenge2/cmd/server/middleware"
+	"challenge2/cmd/server/router"
 	"challenge2/internal/domain"
 	"encoding/csv"
 	"fmt"
@@ -8,7 +30,15 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
+
+// swagger documentation
+// @title Tickets API
+// @description this is a rest api server for items
+// @version 1
+// @address localhost:8080
 
 func main() {
 
@@ -17,8 +47,15 @@ func main() {
 	if err != nil {
 		panic("Couldn't load tickets")
 	}
+	lg := middleware.NewLogger()
+	//define router
+	r := gin.New()
+	// > middlewares
+	r.Use(lg.Log())
+	r.Use(gin.Recovery())
 
-	r := gin.Default()
+	// >> docs
+	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.GET("/ping", func(c *gin.Context) { c.String(200, "pong") })
 
 	router := router.NewRouter(r, list)
